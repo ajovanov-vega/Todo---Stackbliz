@@ -1,42 +1,5 @@
-# Nuxt 3 Minimal Starter
+# TODO
+TODO - VegaIT
+Zadatak za vežbanje
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Dizajn: https://www.figma.com/proto/C5T5K9vq8afvCSo385Ooc1/TODO-task?page-id=7%3A3502&node-id=7-3503&viewport=187%2C-1322%2C0.5&scaling=min-zoom&starting-point-node-id=7%3A3503
