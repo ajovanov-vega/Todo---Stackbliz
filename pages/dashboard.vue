@@ -206,15 +206,19 @@ const toggleDialog = () => {
     gap: 0;
     grid-template-areas: "sidebar main" "details details";
     grid-template-columns: 299px 1fr;
-    grid-template-rows: 3fr 1fr;
+    grid-template-rows: 100vh;
   }
 }
 
 .dashboard--full {
+  @media screen and (min-width: $size-tablet) {
+    grid-template-rows: 2fr 1fr;
+  }
+
   @media screen and (min-width: $size-desktop) {
     grid-template-areas: "sidebar main details";
     grid-template-columns: 299px 1fr 299px;
-    grid-template-rows: 1fr;
+    grid-template-rows: 100vh;
   }
 }
 
