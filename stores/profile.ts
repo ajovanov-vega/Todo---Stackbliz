@@ -20,7 +20,7 @@ export const usePersonStore = defineStore("person", {
     },
   },
   getters: {
-    fullName() {
+    fullName(): string {
       return `${this.firstName} ${this.lastName}`;
     },
   },
@@ -28,3 +28,33 @@ export const usePersonStore = defineStore("person", {
     storage: persistedState.localStorage,
   },
 });
+
+// export const usePersonStore = defineStore("person", () => {
+//   const firstName = ref<string>("John");
+//   const lastName = ref<string>("Doe");
+//   const email = ref<string>("john.doe@vegait.rs");
+
+//   const addPerson = (firstNameValue: string, lastNameValue: string, emailValue: string) => {
+//     if (firstNameValue !== "") {
+//       firstName.value = firstNameValue;
+//     }
+//     if (lastNameValue !== "") {
+//       lastName.value = lastNameValue;
+//     }
+//     if (emailValue !== "") {
+//       email.value = emailValue;
+//     }
+//   };
+
+//   const fullName = (): string => {
+//     return `${firstName.value} ${lastName.value}`;
+//   };
+
+//   return {
+//     firstName,
+//     lastName,
+//     email,
+//     addPerson,
+//     fullName,
+//   };
+// });

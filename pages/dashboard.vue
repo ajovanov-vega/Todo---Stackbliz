@@ -28,17 +28,9 @@
             </li>
           </ul>
           <div class="dashboard__lists-ctas">
-            <button type="button" class="dashboard__lists-btn" @click="showAddListInput()">
+            <button type="button" class="dashboard__lists-btn" @click="toggleDialog">
               <Icon name="line-md:plus" class="dashboard__lists-btn-icon" /> Create new list
             </button>
-            <input
-              class="input dashboard__lists-add-list-input"
-              type="text"
-              v-model="newList"
-              @keydown.enter="addList"
-              placeholder="Add a new list"
-              v-if="newListToggle"
-            />
           </div>
         </div>
       </div>
@@ -112,6 +104,17 @@
     </main>
     <Details v-if="selectedList" :selected-list="selectedList" :completed-todos-count="todoStore.completedTodosCount" />
   </section>
+  <Dialog :open="showDialog" title="Create a list" @close-modal="showDialog = false" @keydown.esc="showDialog = false">
+    <form action="POST" class="dashboard__lists-add-list-form" @submit.prevent="addList">
+      <label class="dashboard__lists-add-list" for="add-todo">
+        <Icon name="line-md:check-list-3-filled" class="dashboard__lists-add-list-icon"></Icon>
+        <input class="dashboard__lists-add-list-input" type="text" v-model="newList" placeholder="Type in name..." />
+      </label>
+      <div class="dashboard__lists-add-list-footer">
+        <button type="submit" class="btn">Create</button>
+      </div>
+    </form>
+  </Dialog>
 </template>
 <script setup lang="ts">
 import { computed, ref, Ref } from "vue";
@@ -144,7 +147,6 @@ const selectedList = computed(() => todoStore.selectedList);
 // Todo input fields
 const newTodo: Ref<string> = ref("");
 const newList: Ref<string> = ref("");
-const newListToggle: Ref<boolean> = ref(false);
 
 // Add a new todo
 const addTodo = () => {
@@ -168,13 +170,12 @@ const addList = () => {
   if (newList.value.trim() === "") return;
   todoStore.addTodoList(newList.value);
   newList.value = "";
-  newListToggle.value = false;
+  showDialog.value = false;
 };
 
 // Remove a todo list
 const removeList = (index: number) => {
   todoStore.removeTodoList(index);
-  newListToggle.value = false;
 };
 
 // Todo lists
@@ -185,9 +186,11 @@ const showTodoList = (list: TodoLists) => {
   todoStore.selectList(list);
 };
 
-// Toggle new list input
-const showAddListInput = () => {
-  newListToggle.value = !newListToggle.value;
+// Modal show
+const showDialog: Ref<boolean> = ref(false);
+
+const toggleDialog = () => {
+  showDialog.value = !showDialog.value;
 };
 </script>
 
@@ -314,10 +317,54 @@ const showAddListInput = () => {
   color: $oil-on-fire;
 }
 
+.dashboard__lists-add-list {
+  align-items: center;
+  border-radius: 24px;
+  border: 1px solid $black;
+  display: grid;
+  gap: 0 5px;
+  grid-template-columns: 22px 1fr;
+  padding: 0 24px;
+}
+
+.dashboard__lists-add-list-icon {
+  display: inline-flex;
+  font-size: 22px;
+  width: 22px;
+}
+
 .dashboard__lists-add-list-input {
+  background: transparent;
+  border: none;
+  color: $black;
   flex: 1 1 auto;
-  margin-top: 15px;
-  width: 100%;
+  font-size: 14px;
+  height: 48px;
+  line-height: 1;
+  outline: none;
+  padding: 0 12px;
+  text-align: left;
+
+  &::placeholder {
+    color: $black;
+  }
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
+  @media screen and (min-width: $size-tablet) {
+    font-size: 16px;
+  }
+}
+
+.dashboard__lists-add-list-footer {
+  border-top: 1px solid $gainsboro;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0 0;
+  margin-top: 20px;
 }
 
 .dashboard__lists-wrapper {
@@ -354,10 +401,12 @@ const showAddListInput = () => {
   background-color: transparent;
   border-radius: 8px;
   color: $black;
-  display: flex;
-  padding: 10px 8px;
-  transition: background-color $transition;
   cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  line-height: 1;
+  padding: 14px 8px;
+  transition: background-color $transition;
 
   &::before {
     display: inline-flex;
@@ -388,6 +437,8 @@ const showAddListInput = () => {
 .dashboard__lists-todo-item-name {
   flex: 1 1 auto;
   text-align: left;
+  position: relative;
+  top: -1px;
 }
 
 .dashboard__lists-todo-item-remove {

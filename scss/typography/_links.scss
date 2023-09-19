@@ -1,8 +1,27 @@
-a, button[type="button"] {
+a,
+button[type="button"] {
   color: $black;
   transition: color $transition;
 
   &:hover {
     color: rgba($black, 0.5);
+  }
+}
+
+.btn {
+  align-items: center;
+  background-color: $black;
+  border-radius: 100px;
+  color: $white;
+  display: inline-flex;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 1;
+  padding: 16px 24px;
+  text-align: center;
+  transition: background-color $transition;
+
+  &:hover {
+    background-color: $bright-lavender;
   }
 }
