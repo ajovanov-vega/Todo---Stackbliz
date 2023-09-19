@@ -38,11 +38,11 @@
             type="email"
             id="email"
             v-model.trim="email"
-            @input="validateInput(email, emailValidity)"
+            @input="validateInput(email, emailValidity, true)"
           />
           <p v-if="!emailValidity">Please enter a valid email!</p>
         </div>
-        <button type="submit" class="btn welcome__link" :class="{ 'btn--loading': isLoading }">
+        <button type="submit" class="btn btn--white welcome__link" :class="{ 'btn--loading': isLoading }">
           <span v-if="!isLoading">Continue</span>
         </button>
       </form>
@@ -82,21 +82,34 @@ const isLoading: Ref<boolean> = ref(false);
 const router = useRouter();
 
 // Input validation functions
-const validateInput = (value: string, validityRef: boolean) => {
+const validateInput = (value: string, validityRef: boolean, isEmail?: boolean) => {
   const inputValue = value; // Access value property
   const isValid = inputValue.trim() !== "";
   validityRef = isValid;
+
+  if (isEmail) {
+    const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!inputValue.match(validRegex)) {
+      emailValidity.value = false;
+      return false;
+    }
+  }
+
+  return isValid;
 };
 
 // Form submission
 const submitForm = async () => {
   isLoading.value = true;
+  firstNameValidity.value = true;
+  lastNameValidity.value = true;
+  emailValidity.value = true;
 
-  validateInput(firstName.value, firstNameValidity.value);
-  validateInput(lastName.value, lastNameValidity.value);
-  validateInput(email.value, emailValidity.value);
+  const firstNameValidation = validateInput(firstName.value, firstNameValidity.value);
+  const lastNameValidation = validateInput(lastName.value, lastNameValidity.value);
+  const emailValidation = validateInput(email.value, emailValidity.value);
 
-  const isFormValid = firstNameValidity.value && lastNameValidity.value && emailValidity.value;
+  const isFormValid = firstNameValidation && lastNameValidation && emailValidation;
 
   if (isFormValid) {
     try {
@@ -110,6 +123,15 @@ const submitForm = async () => {
       isLoading.value = false;
     }
   } else {
+    if (!firstNameValidation) {
+      firstNameValidity.value = firstNameValidation;
+    }
+    if (!lastNameValidation) {
+      lastNameValidity.value = lastNameValidation;
+    }
+    if (!emailValidation) {
+      emailValidity.value = emailValidation;
+    }
     isLoading.value = false;
   }
 };
