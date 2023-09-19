@@ -1,17 +1,17 @@
 <template>
-  <aside v-if="selectedList" class="dashboard__details">
+  <aside v-if="props.selectedList" class="dashboard__details">
     <div class="dashboard__details-wrapper">
       <h2 class="dashboard__details-title">Details</h2>
-      <h3 class="dashboard__details-name">{{ selectedList.name }}</h3>
+      <h3 class="dashboard__details-name">{{ props.selectedList.name }}</h3>
       <div class="dashboard__details-info">
         <h4 class="dashboard__details-info-title">Statistics</h4>
         <ul class="dashboard__details-info-list">
           <li class="dashboard__details-info-list-item">
-            <span class="dashboard__details-info-list-item-emphasize">{{ selectedList.todos.length }}</span>
-            {{ taskPlural(selectedList.todos.length) }}
+            <span class="dashboard__details-info-list-item-emphasize">{{ props.selectedList.todos.length }}</span>
+            {{ taskPlural(props.selectedList.todos.length) }}
           </li>
           <li class="dashboard__details-info-list-item">
-            <span class="dashboard__details-info-list-item-emphasize">{{ completedTodosCount }}</span>
+            <span class="dashboard__details-info-list-item-emphasize">{{ props.completedTodosCount }}</span>
             completed
           </li>
         </ul>

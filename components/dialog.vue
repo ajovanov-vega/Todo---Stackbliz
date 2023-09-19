@@ -21,10 +21,10 @@ const emit = defineEmits(["close-modal"]);
 const dialog = ref<InstanceType<any> | undefined>(null);
 const attrs = useAttrs();
 const internalOpen = ref(false);
-const props = defineProps({
-  open: Boolean,
-  title: String,
-});
+const props = defineProps<{
+  open: boolean;
+  title: string;
+}>();
 
 const toggleDialog = () => {
   if (!dialog?.value) return;

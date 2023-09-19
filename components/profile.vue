@@ -1,11 +1,11 @@
 <template>
   <div class="dashboard__profile">
     <div class="dashboard__profile-image-wrapper">
-      <img class="dashboard__profile-image" src="https://placehold.co/80x80" :alt="fullName" />
+      <img class="dashboard__profile-image" src="https://placehold.co/80x80" :alt="props.fullName" />
     </div>
     <div class="dashboard__profile-info">
-      <h2 class="dashboard__profile-name">{{ fullName }}</h2>
-      <a class="dashboard__profile-email" target="_blank" :href="emailHref">{{ email }}</a>
+      <h2 class="dashboard__profile-name">{{ props.fullName }}</h2>
+      <a class="dashboard__profile-email" target="_blank" :href="props.emailHref">{{ props.email }}</a>
     </div>
     <div class="dashboard__profile-ctas">
       <NuxtLink class="dashboard__sidebar-logo-link" to="/"
