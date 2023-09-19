@@ -1,5 +1,5 @@
 <template>
-  <section class="dashboard">
+  <section class="dashboard" :class="{ 'dashboard--full': selectedList }">
     <aside class="dashboard__sidebar">
       <div class="dashboard__sidebar-top">
         <NuxtLink class="dashboard__sidebar-logo-link" to="/dashboard">
@@ -205,7 +205,9 @@ const showAddListInput = () => {
     grid-template-columns: 299px 1fr;
     grid-template-rows: 3fr 1fr;
   }
+}
 
+.dashboard--full {
   @media screen and (min-width: $size-desktop) {
     grid-template-areas: "sidebar main details";
     grid-template-columns: 299px 1fr 299px;
@@ -414,7 +416,9 @@ const showAddListInput = () => {
 }
 
 .dashboard__main-wrapper {
-  display: block;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   padding: 40px 20px;
   position: relative;
   width: 100%;
@@ -427,6 +431,7 @@ const showAddListInput = () => {
 .dashboard__main-top {
   display: block;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .dashboard__main-greeting {
@@ -456,13 +461,15 @@ const showAddListInput = () => {
 }
 
 .dashboard__main-todo {
+  align-items: center;
   background-color: $tetsu-green;
   border-radius: 16px;
   color: $white;
   display: flex;
   flex-direction: column;
+  max-width: 600px;
   padding: 32px 20px;
-  align-items: center;
+  width: 100%;
 
   @media screen and (min-width: $size-tablet) {
     padding: 32px 24px;

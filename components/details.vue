@@ -53,6 +53,10 @@ function taskPlural(a: number) {
   display: block;
   overflow: auto;
   padding: 32px 20px;
+
+  @media screen and (min-width: $size-desktop) {
+    padding: 62px 20px;
+  }
 }
 
 .dashboard__details-title {
