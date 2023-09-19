@@ -62,9 +62,12 @@ const backdropClick = (event: MouseEvent) => {
   border-radius: 16px;
   border: none;
   display: block;
+  left: 0;
   max-width: 560px;
   opacity: 0;
   padding: 0;
+  position: absolute;
+  right: 0;
   transition:
     visibility 0.3s linear 0.3s,
     opacity 0.3s linear;
