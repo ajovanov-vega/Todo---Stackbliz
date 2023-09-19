@@ -17,6 +17,7 @@
             id="firstName"
             v-model.trim="firstName"
             @input="validateInput(firstName, firstNameValidity)"
+            autocomplete="given-name"
           />
           <p v-if="!firstNameValidity">Please enter a valid name!</p>
         </div>
@@ -28,6 +29,7 @@
             id="lastName"
             v-model.trim="lastName"
             @input="validateInput(lastName, lastNameValidity)"
+            autocomplete="family-name"
           />
           <p v-if="!lastNameValidity">Please enter a valid last name!</p>
         </div>
@@ -39,6 +41,7 @@
             id="email"
             v-model.trim="email"
             @input="validateInput(email, emailValidity, true)"
+            autocomplete="email"
           />
           <p v-if="!emailValidity">Please enter a valid email!</p>
         </div>
@@ -54,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import { usePersonStore } from "~/stores/profile";
 import { useRouter } from "vue-router";
 

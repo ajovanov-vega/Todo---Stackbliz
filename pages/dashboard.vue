@@ -66,6 +66,7 @@
                 v-model="newTodo"
                 @keyup.enter="addTodo"
                 placeholder="Add a task..."
+                autocomplete="off"
               />
             </label>
             <div class="dashboard__main-todos-wrapper">
@@ -86,8 +87,14 @@
                   <h3 class="dashboard__main-todo-name">Today's tasks</h3>
                   <ul class="dashboard__main-todo-list">
                     <li class="dashboard__main-todo-list-item" v-for="(todo, index) in selectedList.todos" :key="index">
-                      <label class="checkbox__label">
-                        <input class="checkbox__input" type="checkbox" v-model="todo.completed" />
+                      <label class="checkbox__label" :for="`todo-checkbox-${index}`">
+                        <input
+                          :id="`todo-checkbox-${index}`"
+                          class="checkbox__input"
+                          type="checkbox"
+                          v-model="todo.completed"
+                          autocomplete="off"
+                        />
                         <span class="checkbox__label-text">{{ todo.text }}</span>
                       </label>
                       <button class="dashboard__main-todo-list-item-remove" type="button" @click="removeTodo(index)">
@@ -106,9 +113,16 @@
   </section>
   <Dialog :open="showDialog" title="Create a list" @close-modal="showDialog = false" @keydown.esc="showDialog = false">
     <form action="POST" class="dashboard__lists-add-list-form" @submit.prevent="addList">
-      <label class="dashboard__lists-add-list" for="add-todo">
+      <label class="dashboard__lists-add-list" for="add-list">
         <Icon name="line-md:check-list-3-filled" class="dashboard__lists-add-list-icon"></Icon>
-        <input class="dashboard__lists-add-list-input" type="text" v-model="newList" placeholder="Type in name..." />
+        <input
+          id="add-list"
+          class="dashboard__lists-add-list-input"
+          type="text"
+          v-model="newList"
+          placeholder="Type in name..."
+          autocomplete="off"
+        />
       </label>
       <div class="dashboard__lists-add-list-footer">
         <button type="submit" class="btn">Create</button>
@@ -176,6 +190,7 @@ const addList = () => {
 // Remove a todo list
 const removeList = (index: number) => {
   todoStore.removeTodoList(index);
+  todoStore.selectList(null);
 };
 
 // Todo lists
